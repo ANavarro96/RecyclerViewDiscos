@@ -33,7 +33,7 @@ class crearDiscos : AppCompatActivity() {
             }
             else{
                 val intentRespuesta = Intent()
-                intentRespuesta.putExtra("nombreDisco", cuadroTexto.text.toString())
+                intentRespuesta.putExtra("nuevoNombre", cuadroTexto.text.toString())
                 setResult(RESULT_OK, intentRespuesta)
                 finish()
             }

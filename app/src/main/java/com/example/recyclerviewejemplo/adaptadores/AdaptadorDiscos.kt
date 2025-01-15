@@ -21,6 +21,7 @@ class AdaptadorDiscos(private val interfaz : Eventos): RecyclerView.Adapter<Adap
             itemView.setOnClickListener{
                 interfaz.click(adapterPosition)
             }
+            itemView.setOnLongClickListener { interfaz.clickLargo(adapterPosition) }
         }
     }
 
