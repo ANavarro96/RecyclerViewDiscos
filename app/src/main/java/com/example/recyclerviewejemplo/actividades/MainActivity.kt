@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var fab :  FloatingActionButton
     lateinit var botonBorrar : Button
     lateinit var botonModificar :  Button
-    var discoDAO : DiscoDAO = DiscoDAO()
+    lateinit var discoDAO : DiscoDAO
     lateinit var adaptador: AdaptadorDiscos
 
    val funcionResultado = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -34,12 +34,12 @@ class MainActivity : AppCompatActivity() {
            if(resultado.resultCode == RESULT_OK){
                val datos = resultado.data
                val nuevoNombre = datos?.getStringExtra("nuevoNombre")!!
-               discoDAO.addDisco(Disco(nuevoNombre, R.drawable.marvin))
+               discoDAO.addDisco(Disco(nuevoNombre, R.drawable.marvin,null))
                adaptador.notifyItemInserted(DiscoDAO.listaDiscos.size - 1)
            }
    }
 
-    fun sacarTostadita ( disco: Disco) {
+    fun sacarTostadita (disco: Disco) {
         Toast.makeText(this, disco.nombre,Toast.LENGTH_LONG).show()
     }
 
@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        discoDAO = DiscoDAO(applicationContext)
+
+        discoDAO.conectarseBD()
+
+        discoDAO.obtenerDiscos()
 
         val e = object : Eventos {
             override fun click(pos: Int) {
@@ -77,8 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         adaptador = AdaptadorDiscos(e)
-
-        for( i in 0..10) DiscoDAO().addDisco(Disco("Disco " + i, R.drawable.marvin))
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL))
