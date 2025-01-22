@@ -32,7 +32,7 @@ class DiscoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         onCreate(db)
     }
 
-    // Insert a new Disco
+    // Añdeme un Disco
     fun insertDisco(disco: Disco): Long {
         val db = writableDatabase
         val contentValues = ContentValues()
@@ -41,7 +41,7 @@ class DiscoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         return db.insert(TABLE_NAME, null, contentValues)
     }
 
-    // Retrieve all Discos
+    // Obtén todos los discos
     fun getAllDiscos(): ArrayList<Disco> {
         val discos = ArrayList<Disco>()
         val db = readableDatabase
@@ -60,7 +60,7 @@ class DiscoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         return discos
     }
 
-    // Update a Disco by ID
+    // Modificar el disco
     fun updateDisco(disco: Disco): Int {
         val db = writableDatabase
         val contentValues = ContentValues()
@@ -69,7 +69,7 @@ class DiscoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         return db.update(TABLE_NAME, contentValues, "$COLUMNA_ID = ?", arrayOf(disco.id.toString()))
     }
 
-    // Delete a Disco by ID
+    // Borrar el disco
     fun deleteDisco(id: Int): Int {
         val db = writableDatabase
         return db.delete(TABLE_NAME, "$COLUMNA_ID = ?", arrayOf(id.toString()))
